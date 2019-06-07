@@ -5,7 +5,7 @@ namespace Epam.Exercises.CleanCode.AdvancedAscii.ConsoleApp
 {
     internal class Program
     {
-        private static ExtendedImage image;
+        private static ImageHelper image;
         private static int stepY;
         private static int stepX;
         private static char[] charsByDarkness = { '#', '@', 'X', 'L', 'I', ':', '.', ' ' };
@@ -16,9 +16,12 @@ namespace Epam.Exercises.CleanCode.AdvancedAscii.ConsoleApp
             int max = 255 * 3;
             Initialize();
 
-            for (int y = 0; y < image.GetHeight() - stepY; y += stepY)
+            var maxStepY = image.GetHeight() - stepY;
+            var maxStepX = image.GetWidth() - stepX;
+
+            for (int y = 0; y < maxStepY; y += stepY)
             {
-                for (int x = 0; x < image.GetWidth() - stepX; x += stepX)
+                for (int x = 0; x < maxStepX; x += stepX)
                 {
                     var point = new Point(x, y);
                     int sum = image.GetRGB(point);
@@ -34,7 +37,7 @@ namespace Epam.Exercises.CleanCode.AdvancedAscii.ConsoleApp
 
         private static void Initialize()
         {
-            image = new ExtendedImage("pair_hiking.png");
+            image = new ImageHelper("pair_hiking.png");
             stepY = image.GetHeight() / 45;
             stepX = image.GetWidth() / 150;
         }
